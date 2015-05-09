@@ -9,26 +9,14 @@ namespace MissionEditor.Console
     {
         static void Main(string[] args)
         {
+            if (args.Length == 0)
+                return;
 
-            var filePath = @"E:\Work\Programming\C#\OpenRA\Dune2000\Resources\MISSIONS\_A5V1.MIS";
-
-            //var bytes = File.ReadAllBytes(filePath);
-            //var mission = new MissionStruct();
-            //var m = ByteArrayToStructure(bytes);
-
+            var filePath = @args[0];
+            var outputName = args.Length > 1 ? args[1] : "testDump.txt";
 
             var mission = FileReaderCore.FileReader.ParseMissionFile(filePath);
-
-            FileReaderCore.FileReader.DumpDataToFile(mission, "testDump.txt");
-
-            return;
-
-            var miss = ByteArrayToStructure(File.ReadAllBytes(filePath));
-
-            //var fs = File.Open(filePath, FileMode.Open);
-            //var binaryFormatter = new BinaryFormatter();
-            //MissionTest mis = (MissionTest)binaryFormatter.Deserialize(fs);
-
+            FileReaderCore.FileReader.DumpDataToFile(mission, outputName);
         }
 
         static MissionTest ByteArrayToStructure(byte[] bytes)
